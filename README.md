@@ -69,8 +69,8 @@ When everything is ready, open a terminal in the folder and write: ```node index
 
 ## 🖼️ Previews:
 
-![weird_picture](https://user-images.githubusercontent.com/67482496/226495495-294d75da-fcb5-427a-ab41-e4d7e24e097d.png)
+![reactions](https://user-images.githubusercontent.com/67482496/226495495-294d75da-fcb5-427a-ab41-e4d7e24e097d.png)
 
-![preview](https://user-images.githubusercontent.com/67482496/226495620-3ab5e5d6-00c9-4f8a-b94b-e1f2003d62e2.png)
+![reactions](https://user-images.githubusercontent.com/67482496/226495620-3ab5e5d6-00c9-4f8a-b94b-e1f2003d62e2.png)
 
-![preview2](https://user-images.githubusercontent.com/67482496/226496024-4e6913d2-c5fd-4d9c-8b6a-154d62075268.png)
+![reactions](https://user-images.githubusercontent.com/67482496/226496024-4e6913d2-c5fd-4d9c-8b6a-154d62075268.png)
