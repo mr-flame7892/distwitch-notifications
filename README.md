@@ -33,6 +33,8 @@ After installing the zip of the project, drop the folder on your desktop or some
 
 5. Finally you will need to put the id of your discord bot in the CLIENT_ID value (If you don't know how to get it, simply go on the page of your discord bot and on the "General informations" page, you will find a section "Application id" and then copy it)
 
+When everything is ready, open a terminal in the folder and write: ```node index.js```
+
 ## 👥 Members features:
 
 - Add your twitch username
@@ -64,3 +66,14 @@ After installing the zip of the project, drop the folder on your desktop or some
 - Delete the twitch of a member
 
 /delete_the_twitch_of_a_member [user]
+
+## 🖼️ Previews:
+
+- Notification:
+![weird_picture](https://user-images.githubusercontent.com/67482496/226495495-294d75da-fcb5-427a-ab41-e4d7e24e097d.png)
+
+- Add your twitch channel:
+![preview](https://user-images.githubusercontent.com/67482496/226495620-3ab5e5d6-00c9-4f8a-b94b-e1f2003d62e2.png)
+
+- Change the twitch of a member:
+![preview2](https://user-images.githubusercontent.com/67482496/226496024-4e6913d2-c5fd-4d9c-8b6a-154d62075268.png)
