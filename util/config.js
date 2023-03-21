@@ -1,7 +1,7 @@
 let config;
 
 try {
-    config = require("./config.json");
+    config = require("../config.json");
 } catch (error) {
     config = null;
 }
