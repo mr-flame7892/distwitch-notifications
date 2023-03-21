@@ -123,162 +123,127 @@ client.on('ready', () => {
 
     setInterval(() => {
 
-        var isStreaming = null
+        if (Object.keys(guilds).length > 0) {
 
-        let currentGuild = Object.keys(guilds)[currentGuildPostion]
+            var isStreaming = null
 
-        const serverLength = Object.keys(guilds).length
+            let currentGuild = Object.keys(guilds)[currentGuildPostion]
 
-        const guild = guilds[currentGuild];
+            const serverLength = Object.keys(guilds).length
 
-        if (guild.notification_channel !== null) {
+            const guild = guilds[currentGuild];
 
-            if (guild.fetched === false && guild.streamers.length > 0) {
+            if (guild.notification_channel !== null) {
 
-                guild.streamers.forEach(async (streamer) => {
+                if (guild.fetched === false && guild.streamers.length > 0) {
 
-                    if (streamer.fetched === false) {
+                    guild.streamers.forEach(async (streamer) => {
 
-                        try {
+                        if (streamer.fetched === false) {
 
-                            var result_twitch = (await phin({
-                                url: `https://api.twitch.tv/helix/streams?user_login=${streamer.twitch_username}`,
-                                method: "GET",
-                                parse: "json",
-                                headers: {
-                                    "Authorization": `Bearer ${twitch_token}`,
-                                    "Client-Id": twitch_id
-                                }
-                            }))
+                            try {
 
-                            var result_twitch_user = (await phin({
-                                url: `https://api.twitch.tv/helix/users?id=${result_twitch.body.data[0].user_id}`,
-                                method: "GET",
-                                parse: "json",
-                                headers: {
-                                    "Authorization": `Bearer ${twitch_token}`,
-                                    "Client-Id": twitch_id
-                                }
-                            }))
+                                var result_twitch = (await phin({
+                                    url: `https://api.twitch.tv/helix/streams?user_login=${streamer.twitch_username}`,
+                                    method: "GET",
+                                    parse: "json",
+                                    headers: {
+                                        "Authorization": `Bearer ${twitch_token}`,
+                                        "Client-Id": twitch_id
+                                    }
+                                }))
 
-                        } catch (error) { isStreaming = false }
+                                var result_twitch_user = (await phin({
+                                    url: `https://api.twitch.tv/helix/users?id=${result_twitch.body.data[0].user_id}`,
+                                    method: "GET",
+                                    parse: "json",
+                                    headers: {
+                                        "Authorization": `Bearer ${twitch_token}`,
+                                        "Client-Id": twitch_id
+                                    }
+                                }))
 
-                        try {
+                            } catch (error) { isStreaming = false }
 
-                            if (result_twitch.statusCode === 401 && result_twitch.statusMessage === "Unauthorized" || result_twitch_user.statusCode === 401 && result_twitch_user.statusMessage === "Unauthorized") {
+                            try {
+
+                                if (result_twitch.statusCode === 401 && result_twitch.statusMessage === "Unauthorized" || result_twitch_user.statusCode === 401 && result_twitch_user.statusMessage === "Unauthorized") {
 
 
-                                const regenerate_token_access = (await phin({
-                                    method: "POST",
-                                    url: `https://id.twitch.tv/oauth2/token?client_id=${twitch_id}&client_secret=${twitch_secret}&grant_type=client_credentials`,
-                                    parse: "json"
-                                })).body
+                                    const regenerate_token_access = (await phin({
+                                        method: "POST",
+                                        url: `https://id.twitch.tv/oauth2/token?client_id=${twitch_id}&client_secret=${twitch_secret}&grant_type=client_credentials`,
+                                        parse: "json"
+                                    })).body
 
-                                const jsonData = JSON.parse(fs.readFileSync("config.json", "utf8"))
+                                    const jsonData = JSON.parse(fs.readFileSync("config.json", "utf8"))
 
-                                jsonData["twitch_token"] = regenerate_token_access.access_token
+                                    jsonData["twitch_token"] = regenerate_token_access.access_token
 
-                                fs.writeFileSync("config.json", JSON.stringify(jsonData))
+                                    fs.writeFileSync("config.json", JSON.stringify(jsonData))
 
-                                try {
+                                    try {
 
-                                    var result_twitch = (await phin({
-                                        url: `https://api.twitch.tv/helix/streams?user_login=${streamer.twitch_username}`,
-                                        method: "GET",
-                                        parse: "json",
-                                        headers: {
-                                            "Authorization": `Bearer ${twitch_token}`,
-                                            "Client-Id": twitch_id
-                                        }
-                                    }))
+                                        var result_twitch = (await phin({
+                                            url: `https://api.twitch.tv/helix/streams?user_login=${streamer.twitch_username}`,
+                                            method: "GET",
+                                            parse: "json",
+                                            headers: {
+                                                "Authorization": `Bearer ${twitch_token}`,
+                                                "Client-Id": twitch_id
+                                            }
+                                        }))
 
-                                    var result_twitch_user = (await phin({
-                                        url: `https://api.twitch.tv/helix/users?id=${result_twitch.body.data[0].user_id}`,
-                                        method: "GET",
-                                        parse: "json",
-                                        headers: {
-                                            "Authorization": `Bearer ${twitch_token}`,
-                                            "Client-Id": twitch_id
-                                        }
-                                    }))
+                                        var result_twitch_user = (await phin({
+                                            url: `https://api.twitch.tv/helix/users?id=${result_twitch.body.data[0].user_id}`,
+                                            method: "GET",
+                                            parse: "json",
+                                            headers: {
+                                                "Authorization": `Bearer ${twitch_token}`,
+                                                "Client-Id": twitch_id
+                                            }
+                                        }))
 
-                                } catch (error) { isStreaming = false }
+                                    } catch (error) { isStreaming = false }
 
-                            }
-
-                        } catch (error) { }
-
-                        try {
-
-                            if (isStreaming !== false) {
-
-                                function replaceAll(recherche, remplacement, chaineAModifier) {
-                                    return chaineAModifier.split(recherche).join(remplacement);
                                 }
 
-                                const thumbnail_url = replaceAll("{height}", "1080", replaceAll("{width}", "1920", result_twitch.body.data[0].thumbnail_url))
+                            } catch (error) { }
 
-                                const StreamingEmbed = new MessageEmbed()
-                                    .setAuthor({ name: `${result_twitch_user.body.data[0].display_name} is streaming!`, url: `https://www.twitch.tv/${result_twitch.body.data[0].user_login}`, iconURL: result_twitch_user.body.data[0].profile_image_url })
-                                    .setColor("#9146FF")
-                                    .addFields(
-                                        { name: "Game:", value: result_twitch.body.data[0].game_name, inline: true },
-                                        { name: "Viewers:", value: result_twitch.body.data[0].viewer_count.toLocaleString(), inline: true }
-                                    )
-                                    .setThumbnail("https://static.twitchcdn.net/assets/favicon-32-e29e246c157142c94346.png")
-                                    .setDescription(result_twitch.body.data[0].title)
-                                    .setImage(thumbnail_url)
-                                    .setTimestamp();
+                            try {
 
-                                client.guilds.cache.get(currentGuild).channels.cache.get(guild.notification_channel).send({ embeds: [StreamingEmbed] })
+                                if (isStreaming !== false) {
 
-                                new_data = {
-                                    "fetched": true,
-                                    "adder": streamer.adder,
-                                    "twitch_username": streamer.twitch_username,
-                                    "twitch_url": `https://www.twitch.tv/${streamer.twitch_username}`
-                                }
-
-                                delete guild.streamers[tries]
-
-                                guild.streamers.splice(tries, 1)
-
-                                guild.streamers.push(new_data)
-
-                                fs.writeFile("streamers.json", JSON.stringify(guilds), "utf-8", function (error) {
-
-                                    if (error) {
-
-                                        console.log(error);
-
+                                    function replaceAll(recherche, remplacement, chaineAModifier) {
+                                        return chaineAModifier.split(recherche).join(remplacement);
                                     }
 
-                                })
+                                    const thumbnail_url = replaceAll("{height}", "1080", replaceAll("{width}", "1920", result_twitch.body.data[0].thumbnail_url))
 
-                                const newTries = guild.streamers.length - 1;
+                                    const StreamingEmbed = new MessageEmbed()
+                                        .setAuthor({ name: `${result_twitch_user.body.data[0].display_name} is streaming!`, url: `https://www.twitch.tv/${result_twitch.body.data[0].user_login}`, iconURL: result_twitch_user.body.data[0].profile_image_url })
+                                        .setColor("#9146FF")
+                                        .addFields(
+                                            { name: "Game:", value: result_twitch.body.data[0].game_name, inline: true },
+                                            { name: "Viewers:", value: result_twitch.body.data[0].viewer_count.toLocaleString(), inline: true }
+                                        )
+                                        .setThumbnail("https://static.twitchcdn.net/assets/favicon-32-e29e246c157142c94346.png")
+                                        .setDescription(result_twitch.body.data[0].title)
+                                        .setImage(thumbnail_url)
+                                        .setTimestamp();
 
-                                if (tries === guild.streamers.length - 1) {
-
-                                    tries = 0;
-
-                                } else {
-
-                                    tries = tries + 1;
-
-                                }
-
-                                setTimeout(() => {
-
-                                    delete guild.streamers[newTries]
-
-                                    guild.streamers.splice(newTries, 1)
+                                    client.guilds.cache.get(currentGuild).channels.cache.get(guild.notification_channel).send({ embeds: [StreamingEmbed] })
 
                                     new_data = {
-                                        "fetched": false,
+                                        "fetched": true,
                                         "adder": streamer.adder,
                                         "twitch_username": streamer.twitch_username,
                                         "twitch_url": `https://www.twitch.tv/${streamer.twitch_username}`
                                     }
+
+                                    delete guild.streamers[tries]
+
+                                    guild.streamers.splice(tries, 1)
 
                                     guild.streamers.push(new_data)
 
@@ -292,33 +257,72 @@ client.on('ready', () => {
 
                                     })
 
-                                }, 105 * 60 * 1000)
+                                    const newTries = guild.streamers.length - 1;
+
+                                    if (tries === guild.streamers.length - 1) {
+
+                                        tries = 0;
+
+                                    } else {
+
+                                        tries = tries + 1;
+
+                                    }
+
+                                    setTimeout(() => {
+
+                                        delete guild.streamers[newTries]
+
+                                        guild.streamers.splice(newTries, 1)
+
+                                        new_data = {
+                                            "fetched": false,
+                                            "adder": streamer.adder,
+                                            "twitch_username": streamer.twitch_username,
+                                            "twitch_url": `https://www.twitch.tv/${streamer.twitch_username}`
+                                        }
+
+                                        guild.streamers.push(new_data)
+
+                                        fs.writeFile("streamers.json", JSON.stringify(guilds), "utf-8", function (error) {
+
+                                            if (error) {
+
+                                                console.log(error);
+
+                                            }
+
+                                        })
+
+                                    }, 105 * 60 * 1000)
+
+                                }
+
+                            } catch (error) {
 
                             }
 
-                        } catch (error) {
+                        } else if (streamer.fetched === true) {
+
+                            return;
 
                         }
 
-                    } else if (streamer.fetched === true) {
+                    })
 
-                        return;
-
-                    }
-
-                })
+                }
 
             }
 
-        }
+            if (currentGuildPostion === serverLength - 1) {
 
-        if (currentGuildPostion === serverLength - 1) {
+                currentGuildPostion = 0;
 
-            currentGuildPostion = 0;
+            } else {
 
-        } else {
+                currentGuildPostion = currentGuildPostion + 1;
 
-            currentGuildPostion = currentGuildPostion + 1;
+            }
 
         }
 
