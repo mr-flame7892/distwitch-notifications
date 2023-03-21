@@ -3,11 +3,11 @@ An open code source discord bot write in javascript with discord.js who will sen
 
 ## 🗃️ Requirements
 
-1. Version 1.5.0 of @discordjs/builders
-2. Version 1.6.0 of @discordjs/rest
-3. Version 13.13.1 of discord.js
+1. Version 1.5.0 of [@discordjs/builders](https://www.npmjs.com/package/@discordjs/builders/v/1.5.0)
+2. Version 1.6.0 of [@discordjs/rest](https://www.npmjs.com/package/@discordjs/rest/v/1.6.0)
+3. Version 13.13.1 of [discord.js](https://www.npmjs.com/package/discord.js/v/13.13.1)
 4. Version 0.0.1-security of fs
-5. Version 3.7.0 of phin
+5. Version 3.7.0 of [phin](https://www.npmjs.com/package/phin/v/3.7.0)
 
 ## 🔧 Configuration
 
