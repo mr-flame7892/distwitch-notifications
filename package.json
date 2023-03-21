@@ -1,0 +1,29 @@
+{
+  "name": "distwitch-notifications",
+  "version": "1.0.0",
+  "description": "A public code source to create a bot which will send a notification on a guild when ones of the streamers is streaming",
+  "main": "index.js",
+  "homepage": "https://github.com/MR-Flame-exe/distwitch-notifications",
+  "repository": "github:MR-Flame-exe/distwitch-notifications",
+  "bugs": "https://github.com/MR-Flame-exe/distwitch-notifications/issues",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Twitch",
+    "Discord",
+    "BOT",
+    "Notification",
+    "Streams",
+    "Javascript"
+  ],
+  "author": "MR.Flame",
+  "license": "MIT",
+  "dependencies": {
+    "@discordjs/builders": "^1.5.0",
+    "@discordjs/rest": "^1.6.0",
+    "discord.js": "^13.13.1",
+    "fs": "^0.0.1-security",
+    "phin": "^3.7.0"
+  }
+}
