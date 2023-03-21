@@ -53,7 +53,7 @@ When everything is ready, open a terminal in the folder and write: ```node index
 
 /delete_your_twitch
 
-## 🛠️ Admins features:
+## 🛠️ Admins features ("Administrator permission required"):
 
 - Set the channel to send notifications
 
