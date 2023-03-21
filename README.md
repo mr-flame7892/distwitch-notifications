@@ -35,6 +35,10 @@ After installing the zip of the project, drop the folder on your desktop or some
 
 When everything is ready, open a terminal in the folder and write: ```node index.js```
 
+📝 Very important note:
+
+Don't forget to add the ```streamers.json``` file if it is not done yet and see if there's ```{}``` in the file.
+
 ## 👥 Members features:
 
 - Add your twitch username
