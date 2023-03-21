@@ -71,6 +71,10 @@ Don't forget to add the ```streamers.json``` file if it is not done yet and see 
 
 /delete_the_twitch_of_a_member [user]
 
+## 🎥 Tutorial to show you how to use the bot correctly:
+
+https://www.youtube.com/watch?v=mD_-RjUM0AY
+
 ## 🖼️ Previews:
 
 ![reactions](https://user-images.githubusercontent.com/67482496/226495495-294d75da-fcb5-427a-ab41-e4d7e24e097d.png)
