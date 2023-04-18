@@ -117,11 +117,31 @@ client.on('ready', () => {
 
     console.log(`Logged in as ${client.user.tag}!`);
 
+    for (let position = 0; position <= (Object.keys(guilds).length - 1); position++) {
+
+        const position_object = Object.keys(guilds)[position];
+
+        const guild = guilds[position_object]
+
+        guild.fetched = false;
+
+        fs.writeFile("streamers.json", JSON.stringify(guilds), "utf-8", function (error) {
+
+            if (error) {
+
+                console.log(error);
+
+            }
+
+        })
+
+    }
+
     let currentGuildPostion = 0
 
     let tries = 0;
 
-    setInterval(() => {
+    setInterval(async () => {
 
         if (Object.keys(guilds).length > 0) {
 
@@ -163,7 +183,11 @@ client.on('ready', () => {
                                     }
                                 }))
 
-                            } catch (error) { isStreaming = false }
+                            } catch (error) {
+
+                                isStreaming = false
+
+                            }
 
                             try {
 
@@ -230,6 +254,7 @@ client.on('ready', () => {
                                         .setThumbnail("https://static.twitchcdn.net/assets/favicon-32-e29e246c157142c94346.png")
                                         .setDescription(result_twitch.body.data[0].title)
                                         .setImage(thumbnail_url)
+                                        .setFooter({ text: streamer.adder_tag })
                                         .setTimestamp();
 
                                     client.guilds.cache.get(currentGuild).channels.cache.get(guild.notification_channel).send({ embeds: [StreamingEmbed] })
@@ -237,13 +262,50 @@ client.on('ready', () => {
                                     new_data = {
                                         "fetched": true,
                                         "adder": streamer.adder,
+                                        "adder_tag": streamer.adder_tag,
                                         "twitch_username": streamer.twitch_username,
                                         "twitch_url": `https://www.twitch.tv/${streamer.twitch_username}`
                                     }
 
-                                    delete guild.streamers[tries]
+                                    function removeItemOnce(arr, value) {
+                                        var index = arr.indexOf(value);
+                                        if (index > -1) {
+                                            arr.splice(index, 1);
+                                        }
+                                        return arr;
+                                    }
 
-                                    guild.streamers.splice(tries, 1)
+                                    await removeItemOnce(guild.streamers, streamer)
+
+                                    async function verify_null(array) {
+
+                                        let null_tries = 0;
+
+                                        array.forEach(async (data) => {
+
+                                            if (data === null || !data) {
+
+                                                null_tries = null_tries++;
+
+                                            }
+
+                                            if (null_tries === array.length) {
+
+                                                const new_array = array.filter(n => n);
+
+                                                return new_array;
+
+                                            } else {
+
+                                                return array.filter(n => n);
+
+                                            }
+
+                                        })
+
+                                    }
+
+                                    await verify_null(guild.streamers)
 
                                     guild.streamers.push(new_data)
 
@@ -269,15 +331,52 @@ client.on('ready', () => {
 
                                     }
 
-                                    setTimeout(() => {
+                                    setTimeout(async () => {
 
-                                        delete guild.streamers[newTries]
+                                        function removeItemOnce(arr, value) {
+                                            var index = arr.indexOf(value);
+                                            if (index > -1) {
+                                                arr.splice(index, 1);
+                                            }
+                                            return arr;
+                                        }
 
-                                        guild.streamers.splice(newTries, 1)
+                                        await removeItemOnce(guild.streamers, streamer)
+
+                                        async function verify_null(array) {
+
+                                            let null_tries = 0;
+
+                                            array.forEach(async (data) => {
+
+                                                if (data === null || !data) {
+
+                                                    null_tries = null_tries++;
+
+                                                }
+
+                                                if (null_tries === array.length) {
+
+                                                    const new_array = array.filter(n => n);
+
+                                                    return new_array;
+
+                                                } else {
+
+                                                    return array.filter(n => n);
+
+                                                }
+
+                                            })
+
+                                        }
+
+                                        await verify_null(guild.streamers)
 
                                         new_data = {
                                             "fetched": false,
                                             "adder": streamer.adder,
+                                            "adder_tag": streamer.adder_tag,
                                             "twitch_username": streamer.twitch_username,
                                             "twitch_url": `https://www.twitch.tv/${streamer.twitch_username}`
                                         }
@@ -294,7 +393,145 @@ client.on('ready', () => {
 
                                         })
 
-                                    }, 105 * 60 * 1000)
+                                    }, 175 * 60 * 1000)
+
+                                } else {
+
+                                    new_data = {
+                                        "fetched": true,
+                                        "adder": streamer.adder,
+                                        "adder_tag": streamer.adder_tag,
+                                        "twitch_username": streamer.twitch_username,
+                                        "twitch_url": `https://www.twitch.tv/${streamer.twitch_username}`
+                                    }
+
+                                    function removeItemOnce(arr, value) {
+                                        var index = arr.indexOf(value);
+                                        if (index > -1) {
+                                            arr.splice(index, 1);
+                                        }
+                                        return arr;
+                                    }
+
+                                    await removeItemOnce(guild.streamers, streamer)
+
+                                    async function verify_null(array) {
+
+                                        let null_tries = 0;
+
+                                        array.forEach(async (data) => {
+
+                                            if (data === null || !data) {
+
+                                                null_tries = null_tries++;
+
+                                            }
+
+                                            if (null_tries === array.length) {
+
+                                                const new_array = array.filter(n => n);
+
+                                                return new_array;
+
+                                            } else {
+
+                                                return array.filter(n => n);
+
+                                            }
+
+                                        })
+
+                                    }
+
+                                    await verify_null(guild.streamers)
+
+                                    guild.streamers.push(new_data)
+
+                                    fs.writeFile("streamers.json", JSON.stringify(guilds), "utf-8", function (error) {
+
+                                        if (error) {
+
+                                            console.log(error);
+
+                                        }
+
+                                    })
+
+                                    const newTries = guild.streamers.length - 1;
+
+                                    if (tries === guild.streamers.length - 1) {
+
+                                        tries = 0;
+
+                                    } else {
+
+                                        tries = tries + 1;
+
+                                    }
+
+                                    setTimeout(async () => {
+
+                                        function removeItemOnce(arr, value) {
+                                            var index = arr.indexOf(value);
+                                            if (index > -1) {
+                                                arr.splice(index, 1);
+                                            }
+                                            return arr;
+                                        }
+
+                                        await removeItemOnce(guild.streamers, streamer)
+
+                                        async function verify_null(array) {
+
+                                            let null_tries = 0;
+
+                                            array.forEach(async (data) => {
+
+                                                if (data === null || !data) {
+
+                                                    null_tries = null_tries++;
+
+                                                }
+
+                                                if (null_tries === array.length) {
+
+                                                    const new_array = array.filter(n => n);
+
+                                                    return new_array;
+
+                                                } else {
+
+                                                    return array.filter(n => n);
+
+                                                }
+
+                                            })
+
+                                        }
+
+                                        await verify_null(guild.streamers)
+
+                                        new_data = {
+                                            "fetched": false,
+                                            "adder": streamer.adder,
+                                            "adder_tag": streamer.adder_tag,
+                                            "twitch_username": streamer.twitch_username,
+                                            "twitch_url": `https://www.twitch.tv/${streamer.twitch_username}`
+                                        }
+
+                                        guild.streamers.push(new_data)
+
+                                        fs.writeFile("streamers.json", JSON.stringify(guilds), "utf-8", function (error) {
+
+                                            if (error) {
+
+                                                console.log(error);
+
+                                            }
+
+                                        })
+
+                                    }, 5 * 60 * 1000)
 
                                 }
 
@@ -309,6 +546,34 @@ client.on('ready', () => {
                         }
 
                     })
+
+                    guild.fetched = true
+
+                    fs.writeFile("streamers.json", JSON.stringify(guilds), "utf-8", function (error) {
+
+                        if (error) {
+
+                            console.log(error);
+
+                        }
+
+                    })
+
+                    setTimeout(async () => {
+
+                        guild.fetched = false
+
+                        fs.writeFile("streamers.json", JSON.stringify(guilds), "utf-8", function (error) {
+
+                            if (error) {
+
+                                console.log(error);
+
+                            }
+
+                        })
+
+                    }, 5 * 60 * 1000)
 
                 }
 
@@ -394,38 +659,39 @@ client.on('interactionCreate', async interaction => {
 
                     }
 
-                    if (already_exist === false) {
+                })
 
-                        const twitch_username = interaction.options.getString("twitch_username").toLocaleLowerCase();
+                if (already_exist === false) {
 
-                        const new_data = {
-                            "fetched": false,
-                            "adder": interaction.user.id,
-                            "twitch_username": twitch_username,
-                            "twitch_url": `https://www.twitch.tv/${twitch_username}`
-                        }
+                    const twitch_username = interaction.options.getString("twitch_username").toLocaleLowerCase();
 
-                        guild.streamers.push(new_data);
-
-                        fs.writeFile("streamers.json", JSON.stringify(guilds), "utf-8", function (error) {
-
-                            if (error) {
-
-                                console.log(error);
-
-                            }
-
-                        })
-
-                        return interaction.reply({ content: `Your twitch has been added! When you will start a stream, I will send a notification on this server! (Your twitch is: <${new_data.twitch_url}>) ✅`, ephemeral: true })
-
-                    } else {
-
-                        return interaction.reply({ content: "Sorry but it seems that you already have a twitch linked to your id!\n(To change your twitch, simply use the /change_your_twitch command or if you want to delete it, use the /delete_your_twitch command!) ❌", ephemeral: true })
-
+                    const new_data = {
+                        "fetched": false,
+                        "adder": interaction.user.id,
+                        "adder_tag": interaction.user.tag,
+                        "twitch_username": twitch_username,
+                        "twitch_url": `https://www.twitch.tv/${twitch_username}`
                     }
 
-                })
+                    guild.streamers.push(new_data);
+
+                    fs.writeFile("streamers.json", JSON.stringify(guilds), "utf-8", function (error) {
+
+                        if (error) {
+
+                            console.log(error);
+
+                        }
+
+                    })
+
+                    return interaction.reply({ content: `Your twitch has been added! When you will start a stream, I will send a notification on this server! (Your twitch is: <${new_data.twitch_url}>) ✅`, ephemeral: true })
+
+                } else {
+
+                    return interaction.reply({ content: "Sorry but it seems that you already have a twitch linked to your id!\n(To change your twitch, simply use the /change_your_twitch command or if you want to delete it, use the /delete_your_twitch command!) ❌", ephemeral: true })
+
+                }
 
             } else {
 
@@ -434,6 +700,7 @@ client.on('interactionCreate', async interaction => {
                 const new_data = {
                     "fetched": false,
                     "adder": interaction.user.id,
+                    "adder_tag": interaction.user.tag,
                     "twitch_username": twitch_username,
                     "twitch_url": `https://www.twitch.tv/${twitch_username}`
                 }
@@ -528,13 +795,50 @@ client.on('interactionCreate', async interaction => {
 
                     const twitch_username = interaction.options.getString("new_twitch_username").toLocaleLowerCase();
 
-                    delete guild.streamers[tries]
+                    function removeItemOnce(arr, value) {
+                        var index = arr.indexOf(value);
+                        if (index > -1) {
+                            arr.splice(index, 1);
+                        }
+                        return arr;
+                    }
 
-                    guild.streamers.splice(tries, 1)
+                    await removeItemOnce(guild.streamers, streamer)
+
+                    async function verify_null(array) {
+
+                        let null_tries = 0;
+
+                        array.forEach(async (data) => {
+
+                            if (data === null || !data) {
+
+                                null_tries = null_tries++;
+
+                            }
+
+                            if (null_tries === array.length) {
+
+                                const new_array = array.filter(n => n);
+
+                                return new_array;
+
+                            } else {
+
+                                return array.filter(n => n);
+
+                            }
+
+                        })
+
+                    }
+
+                    await verify_null(guild.streamers)
 
                     new_data = {
-                        "fetched": false,
+                        "fetched": streamer.fetched,
                         "adder": interaction.user.id,
+                        "adder_tag": interaction.user.tag,
                         "twitch_username": twitch_username,
                         "twitch_url": `https://www.twitch.tv/${twitch_username}`
                     }
@@ -651,9 +955,45 @@ client.on('interactionCreate', async interaction => {
 
                 if (already_exist === true && streamer.adder === interaction.user.id) {
 
-                    delete guild.streamers[tries]
+                    function removeItemOnce(arr, value) {
+                        var index = arr.indexOf(value);
+                        if (index > -1) {
+                            arr.splice(index, 1);
+                        }
+                        return arr;
+                    }
 
-                    guild.streamers.splice(tries, 1)
+                    await removeItemOnce(guild.streamers, streamer)
+
+                    async function verify_null(array) {
+
+                        let null_tries = 0;
+
+                        array.forEach(async (data) => {
+
+                            if (data === null || !data) {
+
+                                null_tries = null_tries++;
+
+                            }
+
+                            if (null_tries === array.length) {
+
+                                const new_array = array.filter(n => n);
+
+                                return new_array;
+
+                            } else {
+
+                                return array.filter(n => n);
+
+                            }
+
+                        })
+
+                    }
+
+                    await verify_null(guild.streamers)
 
                     fs.writeFile("streamers.json", JSON.stringify(guilds), "utf-8", function (error) {
 
@@ -723,13 +1063,50 @@ client.on('interactionCreate', async interaction => {
 
                     const twitch_username = interaction.options.getString("new_twitch_username").toLocaleLowerCase();
 
-                    delete guild.streamers[tries]
+                    function removeItemOnce(arr, value) {
+                        var index = arr.indexOf(value);
+                        if (index > -1) {
+                            arr.splice(index, 1);
+                        }
+                        return arr;
+                    }
 
-                    guild.streamers.splice(tries, 1)
+                    await removeItemOnce(guild.streamers, streamer)
+
+                    async function verify_null(array) {
+
+                        let null_tries = 0;
+
+                        array.forEach(async (data) => {
+
+                            if (data === null || !data) {
+
+                                null_tries = null_tries++;
+
+                            }
+
+                            if (null_tries === array.length) {
+
+                                const new_array = array.filter(n => n);
+
+                                return new_array;
+
+                            } else {
+
+                                return array.filter(n => n);
+
+                            }
+
+                        })
+
+                    }
+
+                    await verify_null(guild.streamers)
 
                     new_data = {
-                        "fetched": false,
+                        "fetched": streamer.fetched,
                         "adder": user.id,
+                        "adder_tag": user.tag,
                         "twitch_username": twitch_username,
                         "twitch_url": `https://www.twitch.tv/${twitch_username}`
                     }
@@ -802,9 +1179,45 @@ client.on('interactionCreate', async interaction => {
 
                 if (already_exist === true && streamer.adder === user.id) {
 
-                    delete guild.streamers[tries]
+                    function removeItemOnce(arr, value) {
+                        var index = arr.indexOf(value);
+                        if (index > -1) {
+                            arr.splice(index, 1);
+                        }
+                        return arr;
+                    }
 
-                    guild.streamers.splice(tries, 1)
+                    await removeItemOnce(guild.streamers, streamer)
+
+                    async function verify_null(array) {
+
+                        let null_tries = 0;
+
+                        array.forEach(async (data) => {
+
+                            if (data === null || !data) {
+
+                                null_tries = null_tries++;
+
+                            }
+
+                            if (null_tries === array.length) {
+
+                                const new_array = array.filter(n => n);
+
+                                return new_array;
+
+                            } else {
+
+                                return array.filter(n => n);
+
+                            }
+
+                        })
+
+                    }
+
+                    await verify_null(guild.streamers)
 
                     fs.writeFile("streamers.json", JSON.stringify(guilds), "utf-8", function (error) {
 
