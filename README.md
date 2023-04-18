@@ -25,7 +25,7 @@ After installing the zip of the project, drop the folder on your desktop or some
 
 1. The "token" is the token of your discord bot. (If you haven't one, you can create one here: https://discord.com/developers/applications)
 
-2. You can blank it for the moment.
+2. You can blank the "twitch_token" part for the moment.
 
 3. In the twitch_id value, you will need to put the id of your twitch application here. (If you haven't one, you can create one here: https://dev.twitch.tv/console/apps)
 
