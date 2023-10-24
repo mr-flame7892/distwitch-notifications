@@ -1,5 +1,5 @@
 # distwitch-notifications
-An open code source discord bot write in javascript with discord.js who will send a notification on a server, in a specific channel when one of the members is doing a stream! (The bot may have some issues because I stopped to work on it, so feel free to suggest some edits to patch these issues)
+An open code source discord bot write in javascript with discord.js who will send a notification on a server, in a specific channel when one of the members is doing a stream! (The bot may have some issues because I stopped to work on it, so feel free to suggest some edits to patch those issues)
 
 ## 🗃️ Requirements:
 
