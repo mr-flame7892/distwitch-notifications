@@ -11,7 +11,7 @@ An open code source discord bot write in javascript with discord.js who will sen
 
 ## 🔧 Configuration:
 
-After installing the zip of the project, drop the folder on your desktop or somewhere else and open a terminal in this folder. Write: ```npm install``` then you can close the terminal. After that, you will need to set some values in the ```config.json``` file: 
+After installing the zip of the project (or use directly git to duplicate the project), drop the folder on your desktop or somewhere else and open a terminal in this folder. Write: ```npm install``` then you can close the terminal. After that, you will need to set some values in the ```config.json``` file: 
 
 ```json
 {
