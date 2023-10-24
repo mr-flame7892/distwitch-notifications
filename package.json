@@ -15,7 +15,8 @@
     "BOT",
     "Notification",
     "Streams",
-    "Javascript"
+    "Javascript",
+    "NodeJS"
   ],
   "author": "MR.Flame",
   "license": "MIT",
