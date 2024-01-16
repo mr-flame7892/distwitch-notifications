@@ -2,7 +2,7 @@
 An open code source discord bot write in javascript with discord.js who will send a notification on a server, in a specific channel when one of the members is doing a stream! (The bot may have some issues because I stopped to work on it, so feel free to suggest some edits to patch those issues)
 
 ## 🗃️ Requirements:
-
+0. NodeJS (of course)
 1. Version 1.5.0 of [@discordjs/builders](https://www.npmjs.com/package/@discordjs/builders/v/1.5.0)
 2. Version 1.6.0 of [@discordjs/rest](https://www.npmjs.com/package/@discordjs/rest/v/1.6.0)
 3. Version 13.13.1 of [discord.js](https://www.npmjs.com/package/discord.js/v/13.13.1)
