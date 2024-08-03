@@ -3,5 +3,6 @@
     "twitch_token": "",
     "twitch_id": "",
     "twitch_secret": "",
-    "CLIENT_ID": ""
+    "CLIENT_ID": "",
+    "COMMAND_COOLDOWN": null
 }
