@@ -1,7 +1,7 @@
 {
   "name": "distwitch-notifications",
   "version": "1.0.0",
-  "description": "An open code source discord bot write in javascript with discord.js who will send a notification on a server, in a specific channel when one of the members is doing a stream!",
+  "description": "An open code source discord bot write in javascript with node and discord.js which will send a notification on a server, in a specific channel when one of the members is doing a stream!",
   "main": "index.js",
   "homepage": "https://github.com/MR-Flame-exe/distwitch-notifications",
   "repository": "github:MR-Flame-exe/distwitch-notifications",
