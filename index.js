@@ -657,7 +657,7 @@ client.on("interactionCreate", async (interaction) => {
 
   const now = Date.now();
   const timestamps = cooldowns.get(slash_command);
-  const cooldownAmount = (COMMAND_COOLDOWN) * 1000;
+  const cooldownAmount = (COMMAND_COOLDOWN || 5) * 1000;
 
   if (timestamps.has(interaction.user.id)) {
     const expirationTime = timestamps.get(interaction.user.id) + cooldownAmount;
